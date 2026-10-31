@@ -1,69 +1,169 @@
-# DepositDesk demo website
+# DepositDesk
 
-A browser-based security deposit / FDR lifecycle demonstration for SIH26265.
-This package contains the working website source, separate from the presentation.
+### Security Deposit & FDR Lifecycle Management
 
-## Files
+A browser-based demonstration of a unified workspace for managing security deposits and Fixed Deposit Receipts—from submission and document review to maturity monitoring, clearances, and release tracking.
 
-- index.html: page structure, navigation and dialogs.
-- style.css: work queue, tables, review interface and responsive layouts.
-- app.js: synthetic records, validation, document comparison, workflow, reminders and activity history.
+Built for **Smart India Hackathon — Problem Statement SIH26265**.
 
-No npm packages, build step, API keys or database are required.
+**Organization:** AICTE  
+**Department:** Regulation Bureau  
+**Theme:** Smart Automation
+
+[Open the live demo](https://sync-rohan-ization.github.io/depositdesk-demo/)
+
+> Independent student prototype, not an official AICTE service. All sample records are synthetic. AI outputs and bank verification responses are simulated.
+
+## The problem
+
+Managing an FDR involves more than storing a receipt. Officials need to track document discrepancies, confirmation from authorized sources, maturity dates, replacements, clearances, and release decisions.
+
+DepositDesk demonstrates how these activities can be connected through one institution-linked record, with clear next steps and an activity history.
+
+## Features
+
+| Workspace | What you can explore |
+|---|---|
+| Work queue | Records and actions requiring attention |
+| All deposits | Search, filter, create records, and export CSV |
+| Review documents | Compare submitted fields with sample receipt information |
+| Release requests | Track clearances, authorization, and completion separately |
+| Due dates | Monitor approaching deadlines and generate demo reminders |
+| Activity log | Review recorded actions and export history |
+| Help & rules | Read workflow guidance and policy references |
+
+Additional demonstration features include:
+- Duplicate bank/reference checks
+- Renewal and replacement record linking
+- Multiple role views
+- Sample date advancement for deadline scenarios
+- Resettable browser-local sample data
+
+## Try the demonstration
+
+1. Open the [live website](https://sync-rohan-ization.github.io/depositdesk-demo/).
+2. Select **Demo walkthrough**.
+3. Select **Reset & start walkthrough**.
+4. Review the sample discrepancy: the entered amount is ₹35 lakh, while the sample receipt shows ₹30 lakh.
+5. Select **Use ₹30 lakh from receipt** to record the correction.
+6. Select **Run demo bank check** to see a simulated confirmation.
+7. Continue to the release workflow and record the required clearances using the relevant role views.
+8. Switch to **Competent authority** to record authorization, then completion.
+9. Open **Activity log** to inspect the recorded actions.
+10. Explore **Due dates** to test deadline monitoring and reminders.
+
+The role selector is a demonstration control, not a secure authentication mechanism.
+
+## What works today—and what is simulated
+
+| Capability | Current prototype |
+|---|---|
+| Navigation, search, filters, and forms | Functional in the browser |
+| Lifecycle tracking and activity history | Functional with browser-local data |
+| Deadline calculations and reminder records | Functional within the demo |
+| CSV and history exports | Functional |
+| Document extraction and AI findings | Scripted sample outputs |
+| Bank verification | Simulated response |
+| File selection | Does not upload documents or perform OCR |
+| User roles | Interface simulation; no secure login |
+| Email and SMS | No messages are sent |
+| AICTE and bank integrations | Not connected |
+| Release processing | Records a demo workflow; does not move funds |
 
 ## Run locally
 
-1. Extract this ZIP.
-2. Open a terminal inside the DepositDesk-Demo folder.
-3. Start a local server:
+No npm installation, build step, or API key is required.
 
-   Windows: python -m http.server 8000
-   macOS/Linux: python3 -m http.server 8000
+Download or clone the repository:
 
-4. Open http://localhost:8000 in your browser.
-5. Stop the server with Ctrl+C when finished.
+```bash
+git clone https://github.com/sync-rohan-ization/depositdesk-demo.git
+cd depositdesk-demo
+```
 
-You can also open index.html directly in a modern browser. A local server is recommended for consistent browser storage behavior. If port 8000 is occupied, use another port, such as 8080.
+Start a local server:
 
-## Demonstration: about four minutes
+```bash
+python -m http.server 8000
+```
 
-Use Demo walkthrough > Reset & start walkthrough to restore the initial sample and open the review screen.
-Starting the walkthrough resets synthetic changes stored by this demo in the current browser.
+On systems using `python3`:
 
-1. Show FDR-2026-0142: entered amount INR 35 lakh, receipt amount INR 30 lakh.
-2. Click Use INR 30 lakh from receipt (the button displays the rupee symbol). Explain that the previous value remains in the activity log.
-3. Click Run demo bank check. Explain that matching a document and confirming the issuing source are separate events.
-4. Click Next: release. As Regulation officer, record the Regulation clearance. PGRC clearance is pre-completed in the synthetic sample.
-5. Change Viewing as to Vigilance officer and record its clearance.
-6. Change Viewing as to Competent authority. Record authorization. Show that completion remains pending, then record completion separately.
-7. Open Activity log and show the responsible roles and sequence of actions.
-8. Open Due dates and click Generate due reminders twice. After completing the sample release, the first run creates two reminder records and the second creates zero duplicates, provided no other sample records or dates were changed.
+```bash
+python3 -m http.server 8000
+```
 
-## Additional demonstrations
+Open:
 
-- All deposits: search, filter, add a synthetic record and export CSV.
-- Submission form: matching bank/instrument references are rejected as duplicates; maturity must be later than issue date.
-- Due dates: advance the demonstration clock; this does not change the computer date.
-- Conditional replacement: use Regulation officer or Institution user, select Record conditional replacement and enter a new reference, dates and reason. The new pending instrument retains a link to its predecessor.
-- Activity log: export the event history as JSON.
-- Help & rules: curated reference content with source links.
+http://localhost:8000
 
-## How data works
+## Project structure
 
-Sample state is saved in browser localStorage under sih26265-lifecycle-v1.
-Use Reset sample data to restore the original records. Different origins, ports or browsers have separate storage.
-To edit the initial data, change initial() in app.js, then reset the sample in the UI.
+```text
+depositdesk-demo/
+├── index.html    # Page structure and navigation
+├── style.css     # Layout and visual styling
+├── app.js        # Sample data and application behavior
+└── README.md
+```
 
-## Scope
+## Technology
 
-The interface and browser-local workflows are functional. OCR values, bank responses and case summaries are synthetic or scripted. Selecting a document does not upload it or perform OCR. No real AICTE integration, bank verification, payment, email or SMS occurs.
+- HTML5
+- CSS3
+- Vanilla JavaScript
+- Browser localStorage
+- GitHub Pages hosting
 
-Viewing as is a demonstration role switch, not secure authentication. Production would require server-enforced permissions, secure storage, authorized source connectors and a validated policy register.
+The current demo has no backend or shared database.
 
-## Editing
+## Data storage
 
-Change index.html for layout, style.css for visual design, and app.js for records and behavior. Reload the browser after editing. The code uses standard browser APIs and has no bundled third-party libraries.
+Changes are saved in localStorage in the current browser.
 
-## Deploying elsewhere
+- Different visitors have separate demo data.
+- Data does not synchronize across devices.
+- Clearing browser storage removes saved changes.
+- **Reset sample data** restores the demonstration records.
 
-The three source files can be hosted together on any static web host. The local Python server is only for development. This ZIP excludes hosted-service configuration, credentials and Git metadata.
+Use synthetic information only. Do not enter real financial or personal records into this public demo.
+
+## Proposed production development
+
+The following capabilities require further implementation and authorized access:
+
+- OCR extraction with field confidence and document evidence
+- AI-assisted discrepancy detection with human review
+- Authorized bank confirmation connectors and manual fallback
+- Integration with existing AICTE institution records
+- Secure authentication and server-enforced permissions
+- Encrypted document storage and controlled retention
+- Server-side audit history and notification delivery
+- Versioned policy rules based on applicable requirements
+
+AI findings would support scrutiny. Final verification, regulatory decisions, and release authorization remain with competent officials.
+
+## Evaluation plan
+
+Evaluate the solution against a manual baseline using synthetic or authorized records:
+
+- Review time per instrument
+- Extraction accuracy
+- Discrepancy detection accuracy
+- Time to source confirmation
+- Timeliness of deadline alerts
+- Completeness of the audit history
+
+These are planned evaluation measures, not claimed performance results.
+
+## Research foundation
+
+The proposed workflow draws on AICTE approval documentation, security deposit/JFDR user manuals, updated addenda, circulars, and procurement documents.
+
+Current internal procedures, integration contracts, bank verification access, and applicable policy configurations require confirmation before production deployment.
+
+## Project status
+
+**Interactive student prototype — suitable for demonstrations and workflow discussion.**
+
+Not a production financial system or an official government portal.
